@@ -32,20 +32,21 @@
         <h1 class="py-4 bg-dark text-light rounded">ADD GROCERY ITEMS</h1>
 
     </div>
- 
+   
  </main>
  <div class="d-flex justify-content-center">
  <form method="post" action="{{ route('budgets.store') }}">
- <label for ="amount">Money</label>
- <input type="number" placeholder="Enter amount"/>
+ 
+ <label for ="budget_amount">Money</label>
+ <input type="number" name="budget_amount" placeholder="Enter amount"/>
  <br></br>
 
  <label for ="items">Grocery Items</label>
- <input type="text" placeholder="Enter your Items"/>
+ <input type="text" name="items" required="" placeholder="Enter your Items"/>
  <br></br>
 
- <label for ="amount">Amount</label>
- <input type="number" placeholder="Enter amount"/>
+ <label for ="price_amount">Amount</label>
+ <input type="number" name="price_amount" required="" placeholder="Enter amount"/>
  
  <br></br>
 

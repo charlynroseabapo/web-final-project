@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\BudgetController;
 
 /*
 |--------------------------------------------------------------------------
@@ -13,12 +14,13 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('add');
-});
+
+Route::get('/', [BudgetController::class, 'login']);
+Route::get('/add', [BudgetController::class, 'create']);
+
+//Route::post('budgets', 'BudgetController@store')->name('budgets.store');
 
 Route::resource('budgets', 'BudgetController');
-
 //Route::get('/layout', 'BudgetController@index');
 
 //Route::get('saved', 'BudgetController@saved');

@@ -8,6 +8,29 @@ use App\Budget;
 
 class BudgetController extends Controller
 {
+
+    public function login()
+    {
+        return view ('/login');
+    }
+
+
+    public function user(Request $request)
+    {
+        $data=array(
+            'name' => $request->input('fullname'),
+            'username' => $request->input('username'),
+            'pass' => $request->input('pass'),
+            
+        );
+
+        Customer::create($data);
+        return redirect('/')->with('success');
+            
+    }
+
+
+
     /**
      * Display a listing of the resource.
      *
@@ -26,7 +49,7 @@ class BudgetController extends Controller
      */
     public function create()
     {
-        return view('add');
+        return view('/add');
        
     }
 
@@ -38,13 +61,13 @@ class BudgetController extends Controller
      */
     public function store(Request $request)
     {
-        $validatedData = $request->validate([
-            'budget_amount' => 'required|numeric',
-            'items' => 'required',
-            'price_amount' => 'required|numeric',
-        ]);
-        $show = Budget::create($validatedData);
+        $item=array(
+            'budget_amount' => $request->input('budget_amount'),
+            'items' => $request->input('items'),
+            'price_amount' => $request->input('price_amount'),
+        );
 
+        Budget::create($item);
         return redirect('/budgets')->with('success', 'Items and price are successfully saved');
             //
     }
@@ -68,7 +91,9 @@ class BudgetController extends Controller
      */
     public function edit($id)
     {
-        //
+        $list = Budget::findOrFail($id);
+        
+        return view('edit', compact('list'));//
     }
 
     /**
@@ -80,7 +105,14 @@ class BudgetController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $item=array(
+           
+            'items' => $request->input('items'),
+            'price_amount' => $request->input('price_amount'),
+        );
+
+        Budget::whereId($id)->update($item);
+        return redirect('/budgets')->with('success', 'Items and price are successfully updated');//
     }
 
     /**
@@ -91,7 +123,10 @@ class BudgetController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $list = Budget::findOrFail($id);
+        $list->delete();
+        
+        return redirect('/budgets')->with('success', 'Data successfully deleted');
     }
 }
 

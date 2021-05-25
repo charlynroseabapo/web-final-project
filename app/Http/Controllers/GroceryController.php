@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Budget;
+
 
 class GroceryController extends Controller
 {
@@ -13,7 +15,8 @@ class GroceryController extends Controller
      */
     public function index()
     {
-        return view('layout');//
+        $list = Budget::all();
+        return view('/saved', compact('list'));//
     }
 
     /**
@@ -23,7 +26,8 @@ class GroceryController extends Controller
      */
     public function create()
     {
-        return view('create');
+        return view('add');
+       
     }
 
     /**
@@ -34,7 +38,15 @@ class GroceryController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validatedData = $request->validate([
+            'budget_amount' => 'required|numeric',
+            'items' => 'required',
+            'price_amount' => 'required|numeric',
+        ]);
+        $show = Budget::create($validatedData);
+
+        return redirect('/budgets')->with('success', 'Items and price are successfully saved');
+            //
     }
 
     /**
@@ -82,3 +94,4 @@ class GroceryController extends Controller
         //
     }
 }
+
