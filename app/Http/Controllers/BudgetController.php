@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Budget;
+use App\Userlogin;
 
 
 class BudgetController extends Controller
@@ -18,15 +19,17 @@ class BudgetController extends Controller
     public function user(Request $request)
     {
         $data=array(
-            'name' => $request->input('fullname'),
+            'firstname' => $request->input('firstname'),
+            'lastname' => $request->input('lastname'),
+            'email_account' => $request->input('email_account'),
             'username' => $request->input('username'),
-            'pass' => $request->input('pass'),
+            'password' => $request->input('password'),
             
         );
 
-        Customer::create($data);
-        return redirect('/')->with('success');
-            
+        Userlogin::create($data);
+        return redirect('userlogins')->with('success');// 
+          
     }
 
 
@@ -69,7 +72,9 @@ class BudgetController extends Controller
 
         Budget::create($item);
         return redirect('/budgets')->with('success', 'Items and price are successfully saved');
-            //
+        
+        
+        
     }
 
     /**
@@ -106,7 +111,7 @@ class BudgetController extends Controller
     public function update(Request $request, $id)
     {
         $item=array(
-           
+            'budget_amount' => $request->input('budget_amount'),
             'items' => $request->input('items'),
             'price_amount' => $request->input('price_amount'),
         );

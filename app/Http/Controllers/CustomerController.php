@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Budget;
+use App\Userlogin;
 
 
 class GroceryController extends Controller
@@ -15,8 +15,7 @@ class GroceryController extends Controller
      */
     public function index()
     {
-        $list = Budget::all();
-        return view('/saved', compact('list'));//
+ 
     }
 
     /**
@@ -26,7 +25,7 @@ class GroceryController extends Controller
      */
     public function create()
     {
-        return view('add');
+       
        
     }
 
@@ -38,15 +37,17 @@ class GroceryController extends Controller
      */
     public function store(Request $request)
     {
-        $validatedData = $request->validate([
-            'budget_amount' => 'required|numeric',
-            'items' => 'required',
-            'price_amount' => 'required|numeric',
-        ]);
-        $show = Budget::create($validatedData);
+        $data=array(
+            'firstname' => $request->input('firstname'),
+            'lastname' => $request->input('lastname'),
+            'email_account' => $request->input('email_account'),
+            'username' => $request->input('username'),
+            'password' => $request->input('password'),
+            
+        );
 
-        return redirect('/budgets')->with('success', 'Items and price are successfully saved');
-            //
+        Userlogin::create($data);
+        return redirect('/')->with('success');//  
     }
 
     /**

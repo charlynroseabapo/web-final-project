@@ -26,18 +26,22 @@
         <div >
         @csrf
         @method('PATCH')
-        <label for="items">Items</label>
-        <input type="text" name="items" value="{{ $list->items }}"/>
-        </div>
 
-        <div>
+        <label for="budget_amount">Qty</label>
+        <input type="text" name="budget_amount" value="{{ $list->budget_amount }}"/>
+        <br></br>
+
+        <label for="items">Item</label>
+        <input type="text" name="items" value="{{ $list->items }}"/>
+        <br></br>
+
         <label for="price_amount">Price</label>
         <input type="text" name="price_amount" value="{{ $list->price_amount }}"/>
-        </div>
-
         <br></br>
 
         <button type ="submit" class="btn btn-primary">Update Item</button>
+
+        </div>
     </form>
 
 </div>

@@ -34,25 +34,24 @@
     </div>
    
  </main>
- <div class="d-flex justify-content-center">
- <form method="post" action="{{ route('budgets.store') }}">
- 
- <label for ="budget_amount">Money</label>
- <input type="number" name="budget_amount" placeholder="Enter amount"/>
- <br></br>
+<div class="d-flex justify-content-center">
+    <form method="post" action="{{ route('budgets.store') }}">
+           
+        <label for ="budget_amount">Quantity</label>
+        <input type="number" name="budget_amount" required="" placeholder="Enter Quantity"/>
+        <br></br>
 
- <label for ="items">Grocery Items</label>
- <input type="text" name="items" required="" placeholder="Enter your Items"/>
- <br></br>
+        <label for ="items">Grocery Items</label>
+        <input type="text" name="items" required="" placeholder="Enter your Items"/>
+        <br></br>
 
- <label for ="price_amount">Amount</label>
- <input type="number" name="price_amount" required="" placeholder="Enter amount"/>
- 
- <br></br>
+        <label for ="price_amount">Amount</label>
+        <input type="number" name="price_amount" required="" placeholder="Enter amount"/>
+        <br></br>
 
- <button type="submit" class="btn btn-primary">ADD ITEM</button>
+        <button type="submit" class="btn btn-primary">Save</button>
 
- </form>
+    </form>
  </div>
 
 

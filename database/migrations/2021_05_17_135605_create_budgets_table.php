@@ -15,7 +15,7 @@ class CreateBudgetsTable extends Migration
     {
         Schema::create('budgets', function (Blueprint $table) {
             $table->id();
-            $table->float('budget_amount');
+            $table->float('quantity');
             $table->string('items');
             $table->float('price_amount');
             $table->timestamps();

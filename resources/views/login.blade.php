@@ -15,15 +15,11 @@
 
  <body>
 
-    @if ($errors->any())
-        <div class="alert alert-danger">
-            <ul>
-            @foreach ($errors->all() as $error)
-            <li>{{ $error }}</li>
-            @endforeach
-            </ul>
-        </div><br/>
-@endif
+    @if(session()->has('signup'))
+		<script >
+			alert('Successsful Signup');
+		</script>
+	@endif
 
  </body>
  
@@ -54,9 +50,17 @@
     </div>
 
         <div class="d-flex justify-content-center">
-    <form method="get" action="add">
-        <label for ="name">Fullname</label>
-	    <input type="text" name="name"  required="" placeholder="Enter Fullname">
+    <form method="post" action="{{ route('login.user') }}">
+        <label for ="firstname">First Name</label>
+	    <input type="text" name="firstname"  required="" placeholder="Enter first name">
+        <br></br>
+
+        <label for ="lastname">Last name</label>
+	    <input type="text" name="lastname" required=""  placeholder="Enter last name">
+        <br></br>
+
+        <label for ="email">Email</label>
+	    <input type="text" name="email_account" required=""  placeholder="Enter email">
         <br></br>
 
         <label for ="username">Username</label>
@@ -64,7 +68,7 @@
         <br></br>
 
         <label for ="pass">Password</label>
-	    <input type="password" name="pass" required=""  placeholder="Enter Password">
+	    <input type="password" name="password" required=""  placeholder="Enter Password">
         <br></br>
 
 		<button type="submit" class="btn btn-primary">SIGN UP</button>
