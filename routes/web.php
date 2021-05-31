@@ -16,14 +16,15 @@ use App\Http\Controllers\BudgetController;
 
 
 Route::get('/', [BudgetController::class, 'login']);
+Route::get('/signup', [BudgetController::class, 'signup']);
 Route::get('/add', [BudgetController::class, 'create']);
 
 //Route::post('budgets', 'BudgetController@store')->name('budgets.store');
 
 Route::resource('budgets', 'BudgetController');
+Route::get('user','BudgetController@signup');
+Route::post('/', 'BudgetController@user');
 
-Route::resource('userlogins', 'BudgetController');
-//Route::get('/layout', 'BudgetController@index');
+Route::get('total','BudgetController@budgets');
 
-//Route::get('saved', 'BudgetController@saved');
 

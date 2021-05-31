@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateTotalsTable extends Migration
+class UpdateBudgets extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,10 @@ class CreateTotalsTable extends Migration
      */
     public function up()
     {
-       
+        Schema::table('budgets', function (Blueprint $table){
+            $table -> float('sub_total')->nullable();
+           
+        });//
     }
 
     /**
@@ -23,6 +26,6 @@ class CreateTotalsTable extends Migration
      */
     public function down()
     {
-        
+        Schema::dropIfExists('budgets');
     }
 }

@@ -1,8 +1,9 @@
 <?php
 
 namespace App\Http\Controllers;
-
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use DB;
 use App\Budget;
 use App\Userlogin;
 
@@ -10,29 +11,41 @@ use App\Userlogin;
 class BudgetController extends Controller
 {
 
-    public function login()
+    public function login(Request $request)
     {
-        return view ('/login');
+        return view('/login');
+        $credentials = $request->only('username', 'password');
+
+        if (Auth::attempt($credentials)) {
+            // Authentication passed...
+            return redirect()->intended('/add');
+        }else {
+            return redirect('/login')->with('Wrong credentials!');
+        }
     }
 
+   
+    public function signup()
+    {
+        return view ('/signup');
+    }
 
+    /** Store a newly created resource in table userlogins.**/
     public function user(Request $request)
     {
-        $data=array(
-            'firstname' => $request->input('firstname'),
-            'lastname' => $request->input('lastname'),
-            'email_account' => $request->input('email_account'),
-            'username' => $request->input('username'),
-            'password' => $request->input('password'),
-            
-        );
+        
+            $firstname = $request->input('firstname');
+            $lastname = $request->input('lastname');
+            $firstname = $request->input('firstname');
+            $email_account = $request->input('email_account');
+            $username = $request->input('username');
+            $password = $request->input('password');
 
-        Userlogin::create($data);
-        return redirect('userlogins')->with('success');// 
-          
+        $data=array('firstname'=>$firstname,'lastname'=>$lastname, 'email_account'=>$email_account,'username'=>$username,'password'=>$password);
+        DB::table('userlogins')->insert($data);
+        return redirect('/')->with('success', 'Your data successfully saved!');
+
     }
-
-
 
     /**
      * Display a listing of the resource.
@@ -57,7 +70,7 @@ class BudgetController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Store a newly created resource in table budgets.
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
@@ -65,16 +78,14 @@ class BudgetController extends Controller
     public function store(Request $request)
     {
         $item=array(
-            'budget_amount' => $request->input('budget_amount'),
+            'quantity' => $request->input('quantity'),
             'items' => $request->input('items'),
             'price_amount' => $request->input('price_amount'),
-        );
-
+            'sub_total' =>  $request->input('price_amount') * $request->input('quantity'),
+        );   
         Budget::create($item);
-        return redirect('/budgets')->with('success', 'Items and price are successfully saved');
-        
-        
-        
+        return redirect('/budgets')->with('success', 'Items successfully added to list!'); 
+
     }
 
     /**
@@ -98,7 +109,7 @@ class BudgetController extends Controller
     {
         $list = Budget::findOrFail($id);
         
-        return view('edit', compact('list'));//
+        return view('edit', compact('list'));
     }
 
     /**
@@ -111,13 +122,14 @@ class BudgetController extends Controller
     public function update(Request $request, $id)
     {
         $item=array(
-            'budget_amount' => $request->input('budget_amount'),
+            'quantity' => $request->input('quantity'),
             'items' => $request->input('items'),
             'price_amount' => $request->input('price_amount'),
+            'sub_total' =>  $request->input('price_amount') * $request->input('quantity'),
         );
 
         Budget::whereId($id)->update($item);
-        return redirect('/budgets')->with('success', 'Items and price are successfully updated');//
+        return redirect('/budgets')->with('success', 'Record successfully updated!');
     }
 
     /**
@@ -131,7 +143,7 @@ class BudgetController extends Controller
         $list = Budget::findOrFail($id);
         $list->delete();
         
-        return redirect('/budgets')->with('success', 'Data successfully deleted');
+        return redirect('/budgets')->with('success', 'Record successfully deleted!');
     }
 }
 

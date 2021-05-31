@@ -3,80 +3,79 @@
 <head>
 @extends('layout')
 @section('content')
- <style>
+<style>
+    .uper{
+        margin-top:80px;
+    }
 
- body{
-     padding: 5px;
-     font-family: verdana;
+.login{
+    overflow: hidden;
+    background-color: #717171;
+    padding: 40px 30px 30px 30px;
+    border-radius: 10px;
+    position: center;
+    top: 50%;
+    left: 50%;
+    width: 400px;
+    box-shadow: 5px 10px 10px;   
+    }
 
- }
- 
- </style>
+input {
+    display: block;
+    border-radius: 5px;
+    font-size: 18px;
+    background: white;
+    width: 100%;
+    padding: 10px 10px;
+    margin: 15px -10px;
+  }
 
+  button {
+    display: block;
+    background-color: #D2691E;
+    font-size: 16px;
+    text-transform: uppercase;
+    width: 100px;
+    padding: 10px 0;
+    margin: 0 auto -15px auto;
+    border-radius: 100px;
+    border: 1px solid #FF7052;
+    font-weight: bold;
+  }
+
+  button:hover{
+      background-color:#8B4513;
+  }
+
+  .user-actions{
+      color: #f2b400;
+  }
+</style>
  <body>
-
-    @if(session()->has('signup'))
-		<script >
-			alert('Successsful Signup');
-		</script>
-	@endif
-
+ <div class="uper">
+    @if(session()->get('success'))
+        <div class="alert alert-success">
+        {{ session()->get('success') }}
+        </div><br/>
+    @endif
  </body>
- 
     <div class="container text-center">
-        <h1 class="py-4 bg-dark text-light rounded">Log In</h1>
+        <h1 >Welcome!</h1>
+        <h1 >GROCERY BUDGET FRIENDLY</h1>
     </div>
- 
- <div class="d-flex justify-content-center">
-    <form method="get" action="/add">
- 
-        <label for ="username">Username</label>
-        <input type="text" name="username" required="" placeholder="Enter username"/>
-    <br></br>
+<div class="d-flex justify-content-center">
+    <form class="login" method="get" action="/add">
 
-        <label for ="pass">Password</label>
-        <input type="password" name="pass" required="" placeholder="Enter your password"/>
-    <br></br>
+        <input type="text" name="username" required="" placeholder="Username"/>
+        <input type="password" name="password" required="" placeholder="Password"/>
+        <button type="submit">Login</button>
+        <br></br>
 
-        <button type="submit" class="btn btn-primary">Log In</button>
-
+        <div class="text-center">
+            <p>Do you wish to register<br> for <a href="/signup" class="link user-actions"><strong>a new account</strong></a>?</p>
+          </div>
     </form>
- </div>
-
-    <br></br>
-
-    <div class="container text-center">
-        <h1 class="py-4 bg-dark text-light rounded">Sign up</h1>
-    </div>
-
-        <div class="d-flex justify-content-center">
-    <form method="post" action="{{ route('login.user') }}">
-        <label for ="firstname">First Name</label>
-	    <input type="text" name="firstname"  required="" placeholder="Enter first name">
-        <br></br>
-
-        <label for ="lastname">Last name</label>
-	    <input type="text" name="lastname" required=""  placeholder="Enter last name">
-        <br></br>
-
-        <label for ="email">Email</label>
-	    <input type="text" name="email_account" required=""  placeholder="Enter email">
-        <br></br>
-
-        <label for ="username">Username</label>
-	    <input type="text" name="username" required=""  placeholder="Enter Username">
-        <br></br>
-
-        <label for ="pass">Password</label>
-	    <input type="password" name="password" required=""  placeholder="Enter Password">
-        <br></br>
-
-		<button type="submit" class="btn btn-primary">SIGN UP</button>
-
-    </form>
-	
 </div>
-
 @endsection   
 </head>
 </html>
